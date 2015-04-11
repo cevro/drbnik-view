@@ -136,9 +136,7 @@ class JSON {
      * @access   public
      */
     function encode($var) {
-        if (!$this->skipnative && function_exists('json_encode')){
-            return json_encode($var);
-        }
+        
         switch (gettype($var)) {
             case 'boolean':
                 return $var ? 'true' : 'false';
@@ -200,8 +198,8 @@ class JSON {
                             // see http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8
                             $char = pack('C*', $ord_var_c, ord($var{$c+1}));
                             $c+=1;
-                            //$utf16 = mb_convert_encoding($char, 'UTF-16', 'UTF-8');
-                            $utf16 = utf8_to_utf16be($char);
+                            $utf16 = mb_convert_encoding($char, 'UTF-16', 'UTF-8');
+                            //$utf16 = utf8_to_utf16be($char);
                             $ascii .= sprintf('\u%04s', bin2hex($utf16));
                             break;
 
